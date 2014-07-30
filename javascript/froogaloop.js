@@ -1,5 +1,3 @@
-alert('Remove this line before using in production!');
-
 // Init style shamelessly stolen from jQuery http://jquery.com
 var Froogaloop = (function(){
     // Define a local copy of Froogaloop
@@ -76,10 +74,10 @@ var Froogaloop = (function(){
             storeCallback(eventName, callback, target_id);
 
             // The ready event is not registered via postMessage. It fires regardless.
-            if (eventName != 'ready') {
+            if (eventName !== 'ready') {
                 postMessage('addEventListener', eventName, element);
             }
-            else if (eventName == 'ready' && isReady) {
+            else if (eventName === 'ready' && isReady) {
                 callback.call(null, target_id);
             }
 
@@ -102,7 +100,7 @@ var Froogaloop = (function(){
                 removed = removeCallback(eventName, target_id);
 
             // The ready event is not registered
-            if (eventName != 'ready' && removed) {
+            if (eventName !== 'ready' && removed) {
                 postMessage('removeEventListener', eventName, element);
             }
         }
@@ -151,12 +149,12 @@ var Froogaloop = (function(){
             //fail silently... like a ninja!
         }
 
-        if (method == 'ready' && !isReady) {
+        if (method === 'ready' && !isReady) {
             isReady = true;
         }
 
         // Handles messages from moogaloop only
-        if (event.origin != playerDomain) {
+        if (event.origin !== playerDomain) {
             return false;
         }
 
@@ -285,6 +283,7 @@ var Froogaloop = (function(){
     }
 
     // Expose froogaloop to the global object
-    return (window.Froogaloop = window.$f = Froogaloop);
+	var result = (window.Froogaloop = window.$f = Froogaloop);
+	return result;
 
 })();
